@@ -2,28 +2,38 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Huan Dinh Resume</title>
+  <title>Huan Dinh Profile</title>
   <style>
     html, body {
       margin: 0; 
       padding: 0; 
       height: 100%;
       width: 100%;
-      overflow: hidden;
+      background: linear-gradient(to right, #f5f7fa, #c3cfe2); /* Nền đẹp */
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .frame-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
     }
     iframe {
-      border: none;
-      width: 100vw;
-      height: 100vh;
-      display: block;
+      border: 3px solid #333;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      width: 90vw;
+      height: 90vh;
     }
   </style>
 </head>
 <body>
-  <iframe 
-    src="https://xmind.ai/embed/nOmnMCy1?sheet-id=b6a2b210-e0a2-4ce9-a062-bc4387716f33" 
-    allowfullscreen 
-    scrolling="no">
-  </iframe>
+  <div class="frame-wrapper">
+    <iframe 
+      src="https://xmind.ai/embed/nOmnMCy1?sheet-id=b6a2b210-e0a2-4ce9-a062-bc4387716f33" 
+      allowfullscreen 
+      scrolling="no">
+    </iframe>
+  </div>
 </body>
 </html>
