@@ -1,6 +1,6 @@
 # Huan Dinh Profile
 
-👋 Welcome to my interactive résumé mindmap! 👋
+👋 Welcome to my interactive résumé mindmap!
 
 This project presents my professional background, skills, and experience through an interactive XMind visualization.
 
