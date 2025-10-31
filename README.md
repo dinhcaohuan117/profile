@@ -1,4 +1,4 @@
-# Huan Dinh Profile
+# Huan (Harold) Dinh Cao
 
 👋 Welcome to my interactive résumé!
 
