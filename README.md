@@ -1,6 +1,6 @@
 # Huan Dinh Profile
 
-👋 Welcome to my interactive résumé mindmap!
+👋 Welcome to my interactive résumé!
 
 Feel free to explore and connect with me!
 
