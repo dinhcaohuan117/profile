@@ -1,40 +1,227 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Huan Dinh Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>Interactive CV</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    html, body {
-      margin: 0; 
-      padding: 0; 
-      height: 100%;
-      width: 100%;
-      background: linear-gradient(to right, #f5f7fa, #c3cfe2); /* Nền đẹp */
-      font-family: 'Segoe UI', sans-serif;
+    body {
+      background-color: #0a1a2f;
+      color: #e0e6ed;
+      font-family: 'Poppins', sans-serif;
     }
-    .frame-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
+    h1, h2 {
+      color: #f5f7fa;
+      font-weight: 600;
     }
-    iframe {
-      border: 3px solid #333;
+    .card {
+      border: 1px solid rgba(192, 192, 192, 0.25);
+      background: rgba(15, 25, 45, 0.8);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      font-weight: 500;
+      padding: 1rem;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+    }
+    .popup {
+      background-color: #101b33;
+      color: #f1f5f9;
+      border: 1px solid rgba(192, 192, 192, 0.35);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 800px;
+      padding: 1.25rem;
+      overflow-y: auto;
+      max-height: 85vh;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+    }
+    .divider {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 1rem 0;
+    }
+    button {
+      background-color: #173d7a;
+      border: 1px solid #2e69c4;
+      color: #fff;
       border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-      width: 90vw;
-      height: 90vh;
+      padding: 0.75rem 1.25rem;
+      font-weight: 500;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    button:hover {
+      background-color: #285bb3;
+      transform: translateY(-2px);
+    }
+    @media (max-width: 640px) {
+      .card {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+      }
+      img {
+        width: 96px !important;
+        height: 96px !important;
+      }
     }
   </style>
 </head>
-<body>
-  <div class="frame-wrapper">
-    <iframe 
-      src="https://xmind.ai/embed/nOmnMCy1?sheet-id=b6a2b210-e0a2-4ce9-a062-bc4387716f33" 
-      allowfullscreen 
-      scrolling="no"
-      sandbox="allow-same-origin allow-scripts">
-    </iframe>
+
+<body class="flex flex-col items-center p-4 sm:p-6 min-h-screen bg-gray-900 text-white">
+
+  <!-- Profile Card -->
+  <div class="text-center mb-8 bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-2xl hover:shadow-blue-500/30 transition-transform transform hover:-translate-y-1 w-full max-w-sm sm:max-w-md">
+    <!-- Profile Image -->
+    <img 
+      src="https://i.postimg.cc/L5D46z3q/cv-photo-portrait-1.jpg"
+      alt="Profile Photo" 
+      class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg border-4 border-blue-500 object-cover"
+    />
+    <h1 class="text-2xl sm:text-3xl mb-2 font-semibold tracking-wide">DINH CAO HUAN</h1>
+    <p class="text-base sm:text-lg text-blue-200">Risk Management<br>Business Intelligence<br>Data Analytics</p>
+    <p class="text-xs sm:text-sm mt-2 text-gray-400 leading-relaxed">
+      📞 0786.29.9683 | 📧 dinhcaohuan117@gmail.com<br>
+      📍 Ban Co Ward, Ho Chi Minh City, Vietnam<br>
+      👤 Gender: Male | 🎂 DOB: 1992
+    </p>
+
+    <!-- Download Button -->
+    <div class="mt-5">
+      <a 
+		href="https://drive.google.com/uc?export=download&id=1FVs7HDqZzMmCj-ncfDC-l9RoZaHPAXiR"
+		download="DinhCaoHuan_CV.pdf"
+		class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+      >
+        ⬇️ Download CV
+      </a>
+    </div>
   </div>
+
+  <!-- Section Buttons -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-5xl">
+    <button onclick="openPopup('summary')" class="card">Summary</button>
+    <button onclick="openPopup('core')" class="card">Core Competencies</button>
+    <button onclick="openPopup('work')" class="card">Work Experience</button>
+    <button onclick="openPopup('skills')" class="card">Skills</button>
+    <button onclick="openPopup('education')" class="card">Education</button>
+    <button onclick="openPopup('highlights')" class="card">Highlights</button>
+    <button onclick="openPopup('certifications')" class="card">Certifications</button>
+    <button onclick="openPopup('references')" class="card">References</button>
+  </div>
+
+  <!-- Overlay Popup -->
+  <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 px-2">
+    <div class="popup relative">
+      <button class="absolute top-3 right-4 text-gray-400 hover:text-gray-100 text-xl" onclick="closePopup()">✕</button>
+      <div id="popup-content"></div>
+    </div>
+  </div>
+
+  <script>
+    const contents = {
+      summary: `
+        <h2>PROFESSIONAL SUMMARY</h2><div class="divider"></div>
+        <p>Banking and fintech professional with 8+ years of experience, including 3 years in Risk Management and Data Analytics. Strong expertise in turning data into insights that enhance risk governance and business performance. Skilled in automation, policy design, and cross-functional collaboration. Proficient in Python, SQL, and Excel for credit risk monitoring and compliance.</p>
+      `,
+      core: `
+        <h2>CORE COMPETENCIES</h2><div class="divider"></div>
+        <ul class="list-disc ml-6 space-y-2">
+          <li>Credit & Operational Risk Management</li>
+          <li>Portfolio Performance Analytics & Monitoring</li>
+          <li>Automated Reporting & Dashboard Development</li>
+          <li>Process Optimization & Workflow Automation</li>
+          <li>Stakeholder Engagement & Cross-functional Collaboration</li>
+        </ul>
+      `,
+      work: `
+        <h2>WORK EXPERIENCE</h2><div class="divider"></div>
+        <p><strong>Assistant Manager – Retail Risk, Risk Management | CIMB Bank Vietnam</strong> (09/2023 – 06/2025)</p>
+        <ul class="list-disc ml-6 mb-4">
+          <li>Automated and enhanced end-to-end credit portfolio and performance reports across multiple lending products.</li>
+          <li>Developed early warning indicators (FPD, SPD) to strengthen risk detection.</li>
+          <li>Built and maintained CIC reports using SQL and Python on BigQuery and RStudio.</li>
+          <li>Prepared group-level portfolio performance and risk appetite monitoring reports.</li>
+          <li>Partnered with Underwriting, Fraud, and Collections for mitigation strategies.</li>
+          <li>Monitored KRIs and ensured compliance as DCORO.</li>
+        </ul>
+        <p><strong>Senior Credit Risk Policy Specialist | MOVI VIET NAM</strong> (11/2022 – 08/2023)</p>
+        <ul class="list-disc ml-6 mb-4">
+          <li>Built automated BI dashboards for real-time risk monitoring.</li>
+          <li>Provided data-driven insights for policy improvements.</li>
+          <li>Integrated analytics into underwriting and fraud detection strategies.</li>
+        </ul>
+        <p><strong>Senior Credit Risk Policy & Process Specialist | FE CREDIT</strong> (05/2022 – 11/2022)</p>
+        <ul class="list-disc ml-6 mb-4">
+          <li>Developed credit risk policies using data analytics for POS & E-Commerce loans.</li>
+          <li>Monitored portfolio trends to trigger corrective actions.</li>
+        </ul>
+        <p><strong>Senior Credit Card Underwriter | Nam A Bank</strong> (05/2017 – 05/2022)</p>
+        <ul class="list-disc ml-6">
+          <li>Managed credit card underwriting to optimize approval quality and minimize delinquencies.</li>
+          <li>Collaborated with Risk and Fraud teams for early delinquency detection.</li>
+          <li>Mentored junior underwriters and supported policy refinements.</li>
+        </ul>
+      `,
+      skills: `
+        <h2>SKILLS</h2><div class="divider"></div>
+        <ul class="list-disc ml-6 space-y-2">
+          <li><strong>Technical:</strong> SQL (Advanced), Python, Excel (VBA, Power Query), Power BI, Google BigQuery</li>
+          <li><strong>Risk & Compliance:</strong> Credit & Operational Risk Management, Portfolio Monitoring, RCSA, LED, CIM, KRI</li>
+          <li><strong>Soft Skills:</strong> Analytical Thinking, Problem Solving, Leadership, Collaboration</li>
+        </ul>
+      `,
+      education: `
+        <h2>EDUCATION</h2><div class="divider"></div>
+        <ul class="list-disc ml-6 space-y-2">
+        <p><li><strong>Bachelor’s Degree in Finance – Banking</strong><br>Ho Chi Minh City Open University | 09/2022 – 11/2024 | GPA: 3.49 / 4.00</p>
+        <p><li><strong>Associate’s Degree in Finance – Banking</strong><br>HCMC Institute of Applied Science & Technology | 10/2010 – 10/2013</p>
+        <p><li><strong>IIG Viet Nam</strong> | TOEIC 800/990</p>
+        </ul>
+      `,
+      highlights: `
+        <h2>KEY HIGHLIGHTS</h2><div class="divider"></div>
+        <ul class="list-disc ml-6 space-y-2">
+          <li>Built and automated risk and operational reports using SQL, Python, and Excel.</li>
+          <li>Led development of CIC reporting in compliance with Circular 15.</li>
+          <li>Expertise in data analytics and risk monitoring for retail lending portfolios.</li>
+          <li>Strong collaboration with cross-functional stakeholders.</li>
+        </ul>
+      `,
+      certifications: `
+        <h2>CERTIFICATIONS</h2><div class="divider"></div>
+        <ul class="list-disc ml-6 space-y-1">
+          <li>2025 HackerRank: SQL Advanced</li>
+          <li>2024 LinkedIn Learning: Human Skills for Managers Professional Certificate</li>
+          <li>2023 NYIF: Credit Risk Management</li>
+          <li>2023 Google: Data Analytics Professional Certificate</li>
+          <li>2023 IBM: Data Analysis with Python</li>
+          <li>2022 CyberSoft: Practical Data Analytics with Python</li>
+        </ul>
+      `,
+      references: `
+        <h2>REFERENCES</h2><div class="divider"></div>
+        <p><li><strong>Chu Nguyên Tú</strong> – Vice President – Credit Risk, CIMB Vietnam</p>
+        <p><li><strong>Nguyễn Văn Quỳnh</strong> – Senior Underwriting Strategy Manager, MOVI Vietnam</p>
+        <p><li><strong>Đinh Văn Hiệu</strong> – Assistant Manager – Risk Management, CIMB Vietnam</p><br>
+        <p>📞 Phone available upon request</p>
+      `
+    };
+
+    function openPopup(section) {
+      document.getElementById('popup-content').innerHTML = contents[section];
+      document.getElementById('overlay').classList.remove('hidden');
+    }
+
+    function closePopup() {
+      document.getElementById('overlay').classList.add('hidden');
+    }
+  </script>
 </body>
 </html>
