@@ -3,15 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <title>Interactive CV</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>Dinh Cao Huan – CV & Portfolio</title>
+  
+  <!-- 1. Tải Font (từ CV) -->
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"> -->
+  
+  <!-- 2. Tải Tailwind CSS (v3 Play CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- 3. Tải Chart.js (từ Dashboard) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+  <!-- 4. Cấu hình Tailwind để dùng font Poppins -->
+  <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    'sans': ['Arial', 'sans-serif'],
+                },
+            }
+        }
+    }
+  </script>
+
+  <!-- 5. Gộp CSS từ cả 2 tệp -->
   <style>
+    /* --- Từ CV.html --- */
     body {
+      /* Đặt màu nền chính từ CV.html */
       background-color: #0a1a2f;
       color: #e0e6ed;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Arial', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     h1, h2 {
       color: #f5f7fa;
@@ -48,6 +73,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       margin: 1rem 0;
     }
+    /* Ghi đè style nút của CV để tương thích v3 */
     button {
       background-color: #173d7a;
       border: 1px solid #2e69c4;
@@ -67,64 +93,276 @@
         font-size: 0.9rem;
       }
       img {
+        /* Đảm bảo ảnh CV không bị ảnh hưởng */
         width: 96px !important;
         height: 96px !important;
       }
     }
+    
+    /* --- Từ Dashboard.html --- */
+    .tab-active {
+        border-bottom-color: #3b82f6 !important; /* blue-500 */
+        color: #3b82f6 !important; /* blue-500 */
+        font-weight: 600;
+    }
+    
+    .filter-active {
+         background-color: #3b82f6 !important; /* blue-600 */
+         color: #ffffff !important;
+    }
+    
+    /* --- Style cho Nav mới --- */
+    .nav-button-active {
+        color: #ffffff !important;
+        border-bottom-color: #3b82f6 !important; /* blue-500 */
+    }
+
   </style>
 </head>
 
-<body class="flex flex-col items-center p-4 sm:p-6 min-h-screen bg-gray-900 text-white">
+<body class="min-h-screen">
 
-  <!-- Profile Card -->
-  <div class="text-center mb-8 bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-2xl hover:shadow-blue-500/30 transition-transform transform hover:-translate-y-1 w-full max-w-sm sm:max-w-md">
-    <!-- Profile Image -->
-    <img 
-      src="https://i.postimg.cc/L5D46z3q/cv-photo-portrait-1.jpg"
-      alt="Profile Photo" 
-      class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg border-4 border-blue-500 object-cover"
-    />
-    <h1 class="text-2xl sm:text-3xl mb-2 font-semibold tracking-wide">DINH CAO HUAN</h1>
-    <p class="text-base sm:text-lg text-blue-200">Risk Management<br>Business Intelligence<br>Data Analytics</p>
-    <p class="text-xs sm:text-sm mt-2 text-gray-400 leading-relaxed">
-      📞 0786.29.9683 | 📧 dinhcaohuan117@gmail.com<br>
-      📍 Ban Co Ward, Ho Chi Minh City, Vietnam<br>
-      👤 Gender: Male | 🎂 DOB: 1992
-    </p>
+  <!-- ***** THANH ĐIỀU HƯỚNG MỚI ***** -->
+  <nav class="bg-gray-800 p-4 sticky top-0 z-40 shadow-lg mb-8" style="background-color: #101b33; border-bottom: 1px solid rgba(192, 192, 192, 0.25);">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+          <h1 class="text-xl font-bold text-white">Dinh Cao Huan</h1>
+          <div class="flex gap-4">
+              <button id="nav-cv" class="nav-button nav-button-active py-2 px-3 text-white font-semibold border-b-2 border-blue-500 transition-colors">
+                  Introduction (CV)
+              </button>
+              <button id="nav-portfolio" class="nav-button py-2 px-3 text-gray-400 font-semibold border-b-2 border-transparent hover:text-white transition-colors">
+                  Project Sample (Portfolio)
+              </button>
+          </div>
+      </div>
+  </nav>
 
-    <!-- Download Button -->
-    <div class="mt-5">
-      <a 
-		href="https://drive.google.com/uc?export=download&id=1FVs7HDqZzMmCj-ncfDC-l9RoZaHPAXiR"
-		download="DinhCaoHuan_CV.pdf"
-		class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
-      >
-        ⬇️ Download CV
-      </a>
-    </div>
-  </div>
+  <!-- ***** NỘI DUNG CHÍNH ***** -->
+  <main class="p-4 sm:p-6">
+  
+      <!-- =================================== -->
+      <!-- NỘI DUNG TRANG 1: CV (TỪ HuanDinhCV.html) -->
+      <!-- =================================== -->
+      <div id="page-cv">
+        <!-- Profile Card -->
+        <div class="text-center mb-8 bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-2xl hover:shadow-blue-500/30 transition-transform transform hover:-translate-y-1 w-full max-w-sm sm:max-w-md mx-auto" style="background: rgba(15, 25, 45, 0.8); border: 1px solid rgba(192, 192, 192, 0.25);">
+          <!-- Profile Image -->
+          <img 
+            src="https://i.postimg.cc/L5D46z3q/cv-photo-portrait-1.jpg"
+            alt="Profile Photo" 
+            class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg border-4 border-blue-500 object-cover"
+          />
+          <h1 class="text-2xl sm:text-3xl mb-2 font-semibold tracking-wide">DINH CAO HUAN</h1>
+          <p class="text-base sm:text-lg text-blue-200">Risk Management<br>Business Intelligence<br>Data Analytics</p>
+          <p class="text-xs sm:text-sm mt-2 text-gray-400 leading-relaxed">
+            📞 0786.29.9683 | 📧 dinhcaohuan117@gmail.com<br>
+            📍 Ban Co Ward, Ho Chi Minh City, Vietnam<br>
+            👤 Gender: Male | 🎂 DOB: 1992
+          </p>
+      
+          <!-- Download Button -->
+          <div class="mt-5">
+            <a 
+              href="https://drive.google.com/uc?export=download&id=1FVs7HDqZzMmCj-ncfDC-l9RoZaHPAXiR"
+              download="DinhCaoHuan_CV.pdf"
+              class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+              style="background-color: #173d7a; border: 1px solid #2e69c4;"
+            >
+              ⬇️ Download CV
+            </a>
+          </div>
+        </div>
+      
+        <!-- Section Buttons (Content is already English) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-5xl mx-auto">
+          <button onclick="openPopup('summary')" class="card">Summary</button>
+          <button onclick="openPopup('core')" class="card">Core Competencies</button>
+          <button onclick="openPopup('work')" class="card">Work Experience</button>
+          <button onclick="openPopup('skills')" class="card">Skills</button>
+          <button onclick="openPopup('education')" class="card">Education</button>
+          <button onclick="openPopup('highlights')" class="card">Highlights</button>
+          <button onclick="openPopup('certifications')" class="card">Certifications</button>
+          <button onclick="openPopup('references')" class="card">References</button>
+        </div>
+      
+        <!-- Overlay Popup -->
+        <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 px-2">
+          <div class="popup relative">
+            <button class="absolute top-3 right-4 text-gray-400 hover:text-gray-100 text-xl" onclick="closePopup()" style="background: transparent; border: none; padding: 0;">✕</button>
+            <div id="popup-content"></div>
+          </div>
+        </div>
+      </div>
 
-  <!-- Section Buttons -->
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-5xl">
-    <button onclick="openPopup('summary')" class="card">Summary</button>
-    <button onclick="openPopup('core')" class="card">Core Competencies</button>
-    <button onclick="openPopup('work')" class="card">Work Experience</button>
-    <button onclick="openPopup('skills')" class="card">Skills</button>
-    <button onclick="openPopup('education')" class="card">Education</button>
-    <button onclick="openPopup('highlights')" class="card">Highlights</button>
-    <button onclick="openPopup('certifications')" class="card">Certifications</button>
-    <button onclick="openPopup('references')" class="card">References</button>
-  </div>
+      <!-- =================================== -->
+      <!-- NỘI DUNG TRANG 2: PORTFOLIO (TỪ Dashboard.html) -->
+      <!-- =================================== -->
+      <div id="page-portfolio" class="hidden">
+        <div class="max-w-7xl mx-auto">
+            <!-- TIÊU ĐỀ CHÍNH -->
+            <header class="mb-6">
+                <h1 class="text-3xl font-bold text-white">Credit Risk Analytics Dashboard</h1>
+                <p class="text-lg text-slate-400">Portfolio Project: Risk Data Analysis and Visualization</p>
+            </header>
+    
+            <!-- THANH ĐIỀU HƯỚNG TAB -->
+            <nav class="flex border-b border-slate-700 mb-6">
+                <button class="tab-button py-3 px-4 md:px-6 text-slate-400 border-b-2 border-transparent hover:text-white transition-colors" data-tab="overview" style="background: transparent; border-color: transparent;">
+                    Portfolio Overview
+                </button>
+                <button class="tab-button py-3 px-4 md:px-6 text-slate-400 border-b-2 border-transparent hover:text-white transition-colors" data-tab="segmentation" style="background: transparent; border-color: transparent;">
+                    Segmentation & Underwriting
+                </button>
+                <button class="tab-button py-3 px-4 md:px-6 text-slate-400 border-b-2 border-transparent hover:text-white transition-colors" data-tab="trends" style="background: transparent; border-color: transparent;">
+                    Performance & Trends
+                </button>
+            </nav>
+    
+            <!-- NỘI DUNG CÁC TAB -->
+            <main>
+                <!-- ======================= -->
+                <!-- TAB 1: TỔNG QUAN (SLIDE 1) -->
+                <!-- ======================= -->
+                <div id="overview" class="tab-panel space-y-6">
+                    <!-- Dàn bài cho các thẻ KPI -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Thẻ KPI 1 -->
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-lg hover:bg-slate-700 transition-all">
+                            <h3 class="text-sm font-medium text-slate-400 uppercase">Total Outstanding Balance</h3>
+                            <p class="text-3xl font-bold text-white mt-2">$1.25 B</p>
+                            <p class="text-sm text-green-400 mt-1">+2.5% vs. previous month</p>
+                        </div>
+                        <!-- Thẻ KPI 2 -->
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-lg hover:bg-slate-700 transition-all">
+                            <h3 class="text-sm font-medium text-slate-400 uppercase">NPL Rate</h3>
+                            <p class="text-3xl font-bold text-red-500 mt-2">3.15%</p>
+                            <p class="text-sm text-red-400 mt-1">+0.12% vs. previous month</p>
+                        </div>
+                        <!-- Thẻ KPI 3 -->
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-lg hover:bg-slate-700 transition-all">
+                            <h3 class="text-sm font-medium text-slate-400 uppercase">Avg. Risk Score</h3>
+                            <p class="text-3xl font-bold text-white mt-2">642</p>
+                            <p class="text-sm text-green-400 mt-1">-5 points (better)</p>
+                        </div>
+                        <!-- Thẻ KPI 4 -->
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-lg hover:bg-slate-700 transition-all">
+                            <h3 class="text-sm font-medium text-slate-400 uppercase">New Loans</h3>
+                            <p class="text-3xl font-bold text-white mt-2">1,820</p>
+                            <p class="text-sm text-slate-400 mt-1">this month</p>
+                        </div>
+                    </div>
+    
+                    <!-- Dàn bài cho biểu đồ -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Biểu đồ lớn -->
+                        <div class="lg:col-span-2 bg-slate-800 p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-4">Outstanding Balance by Risk Level</h3>
+                            <div class="h-80">
+                                <canvas id="overviewChart"></canvas>
+                            </div>
+                        </div>
+                        <!-- Biểu đồ nhỏ -->
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-4">Risk Distribution</h3>
+                            <div class="h-80 flex items-center justify-center">
+                                <canvas id="riskDonutChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- =========================== -->
+                <!-- TAB 2: PHÂN KHÚC (SLIDE 2) -->
+                <!-- =========================== -->
+                <div id="segmentation" class="tab-panel hidden space-y-6">
+                    <!-- KPI Thẩm định -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-lg hover:bg-slate-700 transition-all">
+                            <h3 class="text-sm font-medium text-slate-400 uppercase">Approval Rate</h3>
+                            <p class="text-3xl font-bold text-white mt-2">42.5%</p>
+                            <p class="text-sm text-green-400 mt-1">+1.2% vs. previous month</p>
+                        </div>
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-lg hover:bg-slate-700 transition-all">
+                            <h3 class="text-sm font-medium text-slate-400 uppercase">Payment Default Rate</h3>
+                            <p class="text-3xl font-bold text-red-500 mt-2">4.8%</p>
+                            <p class="text-sm text-red-400 mt-1">Target: < 4.5%</p>
+                        </div>
+                    </div>
+    
+                    <!-- ***** BỘ LỌC SẢN PHẨM MỚI ***** -->
+                    <div class="bg-slate-800 p-4 rounded-lg shadow-lg">
+                         <h3 class="text-sm font-medium text-slate-400 uppercase mb-3">Filter by Product</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="product-filter-btn filter-active py-2 px-4 rounded-lg bg-blue-600 text-white text-sm font-medium transition-all" data-product="all" style="border: 1px solid #2e69c4;">
+                                All Products
+                            </button>
+                            <button class="product-filter-btn py-2 px-4 rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 text-sm font-medium transition-all" data-product="unsecured" style="background-color: #334155; border: 1px solid #475569;">
+                                Unsecured Loan
+                            </button>
+                            <button class="product-filter-btn py-2 px-4 rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 text-sm font-medium transition-all" data-product="cc" style="background-color: #334155; border: 1px solid #475569;">
+                                Credit Card
+                            </button>
+                            <button class="product-filter-btn py-2 px-4 rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 text-sm font-medium transition-all" data-product="bnpl" style="background-color: #334155; border: 1px solid #475569;">
+                                BNPL
+                            </button>
+                        </div>
+                    </div>
+                    <!-- ***** KẾT THÚC BỘ LỌC ***** -->
+    
+    
+                    <!-- Biểu đồ Phân khúc & Thẩm định -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Biểu đồ 1: Lý do Từ chối -->
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-4">Reject Reason Analysis</h3>
+                            <div class="h-96 flex items-center justify-center">
+                                <canvas id="rejectReasonChart"></canvas>
+                            </div>
+                        </div>
+                        <!-- Biểu đồ 2: Phân bổ Điểm Score -->
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-4">Score Distribution (by Product)</h3>
+                            <div class="h-96">
+                                <canvas id="scoreDistributionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- ======================== -->
+                <!-- TAB 3: XU HƯỚNG (SLIDE 3) -->
+                <!-- ======================== -->
+                <div id="trends" class="tab-panel hidden space-y-6">
+                    <!-- Biểu đồ 1: NPL -->
+                    <div class="bg-slate-800 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-lg font-semibold mb-4">NPL Rate Over Time</h3>
+                        <div class="h-80">
+                            <canvas id="trendsChart1"></canvas>
+                        </div>
+                    </div>
+                    <!-- Biểu đồ 2: Vintage -->
+                    <div class="bg-slate-800 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-lg font-semibold mb-4">Vintage Analysis (Roll Rate by DPD 30+)</h3>
+                        <p class="text-sm text-slate-400 mb-4">Tracking NPL rates of loan cohorts by disbursement month.</p>
+                        <div class="h-96">
+                            <canvas id="vintageChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+      </div>
+      
+  </main>
 
-  <!-- Overlay Popup -->
-  <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 px-2">
-    <div class="popup relative">
-      <button class="absolute top-3 right-4 text-gray-400 hover:text-gray-100 text-xl" onclick="closePopup()">✕</button>
-      <div id="popup-content"></div>
-    </div>
-  </div>
 
+  <!-- =================================== -->
+  <!-- ***** PHẦN SCRIPT GỘP ***** -->
+  <!-- =================================== -->
+
+  <!-- 1. Script từ CV.html (Popup) -->
   <script>
+    // CV Content (already in English)
     const contents = {
       summary: `
         <h2>PROFESSIONAL SUMMARY</h2><div class="divider"></div>
@@ -179,11 +417,9 @@
       `,
       education: `
         <h2>EDUCATION</h2><div class="divider"></div>
-        <ul class="list-disc ml-6 space-y-2">
         <p><li><strong>Bachelor’s Degree in Finance – Banking</strong><br>Ho Chi Minh City Open University | 09/2022 – 11/2024 | GPA: 3.49 / 4.00</p>
         <p><li><strong>Associate’s Degree in Finance – Banking</strong><br>HCMC Institute of Applied Science & Technology | 10/2010 – 10/2013</p>
         <p><li><strong>IIG Viet Nam</strong> | TOEIC 800/990</p>
-        </ul>
       `,
       highlights: `
         <h2>KEY HIGHLIGHTS</h2><div class="divider"></div>
@@ -223,5 +459,393 @@
       document.getElementById('overlay').classList.add('hidden');
     }
   </script>
+
+  <!-- 2. Script từ Dashboard.html (Tabs, Charts) + Logic Nav Mới -->
+  <script>
+        // --- BIẾN TOÀN CỤC CHO CHART TAB 2 ---
+        let rejectReasonChartInstance;
+        let scoreDistributionChartInstance;
+
+        // --- DỮ LIỆU GIẢ LẬP CHO CÁC PHÂN KHÚC ---
+        const chartData = {
+            // Dữ liệu cho biểu đồ Lý do Từ chối
+            rejectReason: {
+                all: { 
+                    labels: ['Low Credit Score', 'Insufficient Income', 'Incomplete Application', 'CIC Bad Debt', 'Other'], 
+                    data: [40, 25, 15, 10, 10] 
+                },
+                unsecured: { 
+                    labels: ['Insufficient Income', 'Low Credit Score', 'CIC Bad Debt', 'Application', 'Other'], 
+                    data: [50, 20, 15, 10, 5] 
+                },
+                cc: { 
+                    labels: ['Low Credit Score', 'High Limit Request', 'Already Has Card', 'Income', 'Other'], 
+                    data: [40, 20, 20, 15, 5] 
+                },
+                bnpl: { 
+                    labels: ['Incomplete Application', 'Low Credit Score', 'Unable to Verify', 'Other'], 
+                    data: [50, 30, 15, 5] 
+                }
+            },
+            // Dữ liệu cho biểu đồ Phân bổ Điểm Score
+            scoreDistribution: {
+                getDataset: (label, data, colorRgb) => ({
+                    label: label,
+                    data: data,
+                    borderColor: `rgba(${colorRgb}, 1)`,
+                    backgroundColor: `rgba(${colorRgb}, 0.1)`,
+                    fill: true,
+                    tension: 0.3
+                }),
+                all: function() {
+                    return [
+                        this.getDataset('Unsecured Loan', [10, 20, 40, 80, 50, 20, 10], '59, 130, 246'), // blue
+                        this.getDataset('Credit Card', [5, 15, 30, 60, 70, 40, 20], '16, 185, 129'), // green
+                        this.getDataset('BNPL', [30, 50, 60, 40, 20, 10, 5], '234, 179, 8') // yellow
+                    ];
+                },
+                unsecured: function() {
+                    return [
+                        this.getDataset('Unsecured Loan', [10, 20, 40, 80, 50, 20, 10], '59, 130, 246') // blue
+                    ];
+                },
+                cc: function() {
+                    return [
+                        this.getDataset('Credit Card', [5, 15, 30, 60, 70, 40, 20], '16, 185, 129') // green
+                    ];
+                },
+                bnpl: function() {
+                    return [
+                        this.getDataset('BNPL', [30, 50, 60, 40, 20, 10, 5], '234, 179, 8') // yellow
+                    ];
+                }
+            }
+        };
+
+        // --- HÀM VẼ BIỂU ĐỒ (TAB 2) ---
+        function drawRejectReasonChart(product = 'all') {
+            const canvas = document.getElementById('rejectReasonChart');
+            if (!canvas) return; // Thoát nếu không tìm thấy canvas (khi ở trang CV)
+            const ctxReject = canvas.getContext('2d');
+            
+            if (rejectReasonChartInstance) {
+                rejectReasonChartInstance.destroy();
+            }
+
+            rejectReasonChartInstance = new Chart(ctxReject, {
+                type: 'doughnut',
+                data: {
+                    labels: chartData.rejectReason[product].labels,
+                    datasets: [{
+                        data: chartData.rejectReason[product].data,
+                        backgroundColor: [
+                            'rgba(239, 68, 68, 0.7)', // red-500
+                            'rgba(249, 115, 22, 0.7)', // orange-500
+                            'rgba(234, 179, 8, 0.7)', // yellow-500
+                            'rgba(139, 92, 246, 0.7)', // violet-500
+                            'rgba(107, 114, 128, 0.7)' // slate-500
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: 'rgb(148, 163, 184)' } }
+                    }
+                }
+            });
+        }
+
+        function drawScoreDistributionChart(product = 'all') {
+            const canvas = document.getElementById('scoreDistributionChart');
+            if (!canvas) return; // Thoát nếu không tìm thấy canvas
+            const ctxScore = canvas.getContext('2d');
+
+            if (scoreDistributionChartInstance) {
+                scoreDistributionChartInstance.destroy();
+            }
+            
+            scoreDistributionChartInstance = new Chart(ctxScore, {
+                type: 'line',
+                data: {
+                    labels: ['<500', '500-550', '550-600', '600-650', '650-700', '700-750', '>750'],
+                    datasets: chartData.scoreDistribution[product]()
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: 'rgb(148, 163, 184)' } }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: 'rgb(148, 163, 184)' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: 'rgb(148, 163, 184)' }
+                        }
+                    }
+                }
+            });
+        }
+
+
+        // --- SỰ KIỆN DOMCONTENTLOADED (CHẠY KHI TẢI TRANG) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const textGray = 'rgb(148, 163, 184)'; // slate-400
+            
+            // Cài đặt chung cho Chart.js
+            Chart.defaults.color = textGray;
+            Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+            // ***** MỚI: LOGIC CHUYỂN TRANG CHÍNH *****
+            const navCv = document.getElementById('nav-cv');
+            const navPortfolio = document.getElementById('nav-portfolio');
+            const pageCv = document.getElementById('page-cv');
+            const pagePortfolio = document.getElementById('page-portfolio');
+            let chartsInitialized = false; // Cờ để chỉ khởi tạo chart 1 lần
+
+            navCv.addEventListener('click', () => {
+                pageCv.classList.remove('hidden');
+                pagePortfolio.classList.add('hidden');
+                
+                navCv.classList.add('nav-button-active');
+                navPortfolio.classList.remove('nav-button-active');
+                navPortfolio.classList.add('text-gray-400'); // Đảm bảo nút không active có màu xám
+            });
+
+            navPortfolio.addEventListener('click', () => {
+                pagePortfolio.classList.remove('hidden');
+                pageCv.classList.add('hidden');
+                
+                navPortfolio.classList.add('nav-button-active');
+                navCv.classList.remove('nav-button-active');
+                navCv.classList.add('text-gray-400');
+
+                // Chỉ khởi tạo charts vào lần đầu tiên nhấp vào tab portfolio
+                if (!chartsInitialized) {
+                    initializeDashboardCharts();
+                    chartsInitialized = true;
+                }
+            });
+            // ***** KẾT THÚC LOGIC MỚI *****
+
+
+            // --- CÀI ĐẶT TAB (Dashboard) ---
+            // Đảm bảo chọn đúng các nút trong page-portfolio
+            const tabs = document.querySelectorAll('#page-portfolio .tab-button');
+            const panels = document.querySelectorAll('#page-portfolio .tab-panel');
+
+            // Hiển thị tab đầu tiên khi tải trang (nếu portfolio được hiển thị)
+            if(tabs.length > 0) {
+                tabs[0].classList.add('tab-active');
+                panels[0].classList.remove('hidden');
+            }
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('tab-active'));
+                    tab.classList.add('tab-active');
+                    const target = tab.getAttribute('data-tab');
+                    panels.forEach(panel => {
+                        panel.classList.add('hidden');
+                    });
+                    // Đảm bảo document.getElementById hoạt động
+                    const targetPanel = document.getElementById(target);
+                    if (targetPanel) {
+                        targetPanel.classList.remove('hidden');
+                    }
+                });
+            });
+
+            // --- CÀI ĐẶT FILTER (TAB 2 Dashboard) ---
+            const filterButtons = document.querySelectorAll('#page-portfolio .product-filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('filter-active');
+                        btn.classList.add('bg-slate-700', 'text-slate-300', 'hover:bg-slate-600');
+                        btn.classList.remove('bg-blue-600', 'text-white');
+                        btn.style.backgroundColor = '#334155'; // Reset style
+                        btn.style.border = '1px solid #475569';
+                    });
+                    button.classList.add('filter-active');
+                    button.classList.add('bg-blue-600', 'text-white');
+                    button.classList.remove('bg-slate-700', 'text-slate-300', 'hover:bg-slate-600');
+                    button.style.border = '1px solid #2e69c4'; // Active border
+                    
+                    const product = button.getAttribute('data-product');
+                    
+                    drawRejectReasonChart(product);
+                    drawScoreDistributionChart(product);
+                });
+            });
+
+            // --- Hàm khởi tạo tất cả biểu đồ Dashboard ---
+            function initializeDashboardCharts() {
+                // --- BIỂU ĐỒ TAB 1: TỔNG QUAN ---
+                const ctxOverview = document.getElementById('overviewChart');
+                if (ctxOverview) {
+                    new Chart(ctxOverview.getContext('2d'), {
+                        type: 'bar',
+                        data: {
+                            labels: ['Low Risk', 'Medium Risk', 'High Risk', 'Very High Risk'],
+                            datasets: [{
+                                label: 'Balance (USD M)',
+                                data: [500, 450, 200, 100],
+                                backgroundColor: [
+                                    'rgba(74, 222, 128, 0.6)', // green-400
+                                    'rgba(250, 204, 21, 0.6)', // yellow-400
+                                    'rgba(251, 146, 60, 0.6)', // orange-400
+                                    'rgba(239, 68, 68, 0.6)',  // red-500
+                                ],
+                                borderColor: [
+                                    'rgba(74, 222, 128, 1)',
+                                    'rgba(250, 204, 21, 1)',
+                                    'rgba(251, 146, 60, 1)',
+                                    'rgba(239, 68, 68, 1)',
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: textGray } },
+                                x: { grid: { display: false }, ticks: { color: textGray } }
+                            }
+                        }
+                    });
+                }
+
+                const ctxDonut = document.getElementById('riskDonutChart');
+                if (ctxDonut) {
+                    new Chart(ctxDonut.getContext('2d'), {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Low Risk', 'Medium Risk', 'High/Very High Risk'],
+                            datasets: [{
+                                data: [45, 35, 20], // Tỷ lệ %
+                                backgroundColor: [
+                                    'rgba(74, 222, 128, 0.7)', // green-400
+                                    'rgba(250, 204, 21, 0.7)', // yellow-400
+                                    'rgba(239, 68, 68, 0.7)',  // red-500
+                                ],
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { position: 'bottom', labels: { color: textGray } } }
+                        }
+                    });
+                }
+
+                // --- BIỂU ĐỒ TAB 2: PHÂN KHÚC & THẨM ĐỊNH ---
+                drawRejectReasonChart('all');
+                drawScoreDistributionChart('all');
+
+                // --- BIỂU ĐỒ TAB 3: HIỆU SUẤT & XU HƯỚNG ---
+                const ctxTrends1 = document.getElementById('trendsChart1');
+                if(ctxTrends1) {
+                    new Chart(ctxTrends1.getContext('2d'), {
+                        type: 'line',
+                        data: {
+                            labels: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'],
+                            datasets: [{
+                                label: 'NPL Rate (%)',
+                                data: [2.8, 2.9, 3.0, 2.8, 3.1, 3.3, 3.4, 3.2, 3.0, 3.1, 3.2, 3.15],
+                                borderColor: 'rgba(239, 68, 68, 1)', // red-500
+                                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                                fill: true,
+                                tension: 0.3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                y: { beginAtZero: false, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: textGray } },
+                                x: { grid: { display: false }, ticks: { color: textGray } }
+                            }
+                        }
+                    });
+                }
+
+                const ctxVintage = document.getElementById('vintageChart');
+                if(ctxVintage) {
+                    new Chart(ctxVintage.getContext('2d'), {
+                        type: 'line',
+                        data: {
+                            labels: ['MOB 1', 'MOB 2', 'MOB 3', 'MOB 4', 'MOB 5', 'MOB 6', 'MOB 7', 'MOB 8'], // MOB = Month on Book
+                            datasets: [
+                                {
+                                    label: 'Cohort M1/2024',
+                                    data: [0.5, 0.8, 1.2, 1.5, 1.9, 2.1, 2.2, 2.3],
+                                    borderColor: 'rgba(239, 68, 68, 1)', // red-500
+                                    tension: 0.1,
+                                    fill: false
+                                },
+                                {
+                                    label: 'Cohort M2/2024',
+                                    data: [0.4, 0.7, 1.1, 1.4, 1.8, 2.0, 2.1, null],
+                                    borderColor: 'rgba(249, 115, 22, 1)', // orange-500
+                                    tension: 0.1,
+                                    fill: false
+                                },
+                                {
+                                    label: 'Cohort M3/2024',
+                                    data: [0.6, 0.9, 1.3, 1.7, 2.0, 2.2, null, null],
+                                    borderColor: 'rgba(234, 179, 8, 1)', // yellow-500
+                                    tension: 0.1,
+                                    fill: false
+                                },
+                                {
+                                    label: 'Cohort M4/2024',
+                                    data: [0.5, 0.8, 1.2, 1.6, 1.9, null, null, null],
+                                    borderColor: 'rgba(59, 130, 246, 1)', // blue-500
+                                    tension: 0.1,
+                                    fill: false
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { position: 'bottom', labels: { color: textGray } } },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                    ticks: { 
+                                        color: textGray,
+                                        callback: function(value) { return value + '%' }
+                                    },
+                                    title: { display: true, text: 'DPD 30+ Rate (%)', color: textGray }
+                                },
+                                x: {
+                                    grid: { display: false },
+                                    ticks: { color: textGray },
+                                    title: { display: true, text: 'Month on Book', color: textGray }
+                                }
+                            }
+                        }
+                    });
+                }
+            } // Kết thúc hàm initializeDashboardCharts
+
+        });
+    </script>
 </body>
 </html>
